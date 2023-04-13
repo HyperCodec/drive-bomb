@@ -1,5 +1,5 @@
 # drive-bomb
-Destroy your computer's hard drive very quickly with this. Not intended for malicious purposes.
+Fill your computer's hard drive very quickly with this. Not intended for malicious purposes.
 It essentially just writes to a file with a lot of multiprocessing and concurrency shenanigans.
 
 ### Disclaimer
