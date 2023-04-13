@@ -17,7 +17,7 @@ def save():
         with open(output_dir, "a") as f:
              f.write(data)
 
-        print('saved')
+        os.system('clear')
         print(f'filesize (bytes): {os.path.getsize(output_dir)}')
             
 data = ""
