@@ -26,3 +26,5 @@ t.start()
     
 for i in range(async_tasks):
     asyncio.run(adder())
+
+t.join()
