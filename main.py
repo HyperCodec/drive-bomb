@@ -6,7 +6,7 @@ output_dir = "foo.txt"
 async_tasks = 200
 
 # the fun part
-async def chaos():
+async def adder():
     global data
     
     while True:
@@ -25,4 +25,4 @@ t = Thread(target=save)
 t.start()
     
 for i in range(async_tasks):
-    asyncio.run(chaos())
+    asyncio.run(adder())
