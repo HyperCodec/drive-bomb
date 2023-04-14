@@ -1,30 +1,30 @@
-from threading import Thread
-import asyncio, os
+import asyncio
+from multiprocessing import Pool, Value
+from ctypes import c_char_p
 
 # config (if someone wants to run this for some reason)
 output_dir = "foo.txt"
-async_tasks = 200
+processes = 100
 
 # the fun part
-async def adder():
+data = Value(c_char_p, 0)
+
+def add():
     global data
-    
-    while True:
-        data += "𒁃"
-    
-def save():
-    while True:
-        with open(output_dir, "a") as f:
-             f.write(data)
 
-        os.system('clear')
-        print(f'filesize (bytes): {os.path.getsize(output_dir)}')
-            
-data = ""
-t = Thread(target=save)
-t.start()
-    
-for i in range(async_tasks):
-    asyncio.run(adder())
+    with data.get_lock():
+        data.value = c_char_p(data.value + "𒁃")
 
-t.join()
+if __name__ == "__main__":
+    async def save():
+        while True:
+            with open(output_dir, "a") as f:
+                f.write(data)
+
+    print("making big data")
+    with Pool(processes) as p:
+        p.map(add, range(10000000))
+  
+    print("making big file with data")
+
+    asyncio.run(save())
